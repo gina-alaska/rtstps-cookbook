@@ -7,6 +7,9 @@
 # All rights reserved - Do Not Redistribute
 #
 
+#Install Java - Default is openjdk
+include_recipe "java"
+
 #Ensure the rtstps user exists
 user node['rtstps']['user']
 
