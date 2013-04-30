@@ -14,6 +14,9 @@ include_recipe "java"
 user node['rtstps']['user']
 
 execute 'extract rtspts' do
-  command "tar xvf #{node['rtstps']['cache']}/#{node['rtstps']['source']} -C /home/#{node['rtstps']['user']}"
+  command ["tar xvf #{node['rtstps']['cache']}/#{node['rtstps']['source']}",
+           "-C /home/#{node['rtstps']['user']}"].join(" ")
+  user node['rtstps']['user']
+  group node['rtstps']['user']         
   not_if { ::File.exists?("#{node['rtstps']['path']}/VERSIONLOG") }
 end

@@ -1,4 +1,6 @@
 require File.expand_path('../support/helpers', __FILE__)
+require 'pathname'
+require 'etc'
 
 describe 'rtstps-cookbook::default' do
 
@@ -16,6 +18,11 @@ describe 'rtstps-cookbook::default' do
   end
   
   it 'will install rt-stps' do
-    file(::File.join("/home",node['rtstps']['user'], 'rt-stps', 'VERSIONLOG')).must_exist
+    file(rtstps_install.join('VERSIONLOG').to_path).must_exist
   end
+  
+  it 'will give ownership of rt-stps to the correct user' do
+    file(rtstps_install.to_path).must_exist.with(:owner, node['rtstps']['user']).with(:group, node['rtstps']['user'])
+  end
+  
 end
