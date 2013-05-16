@@ -5,7 +5,7 @@ module Helpers
     include MiniTest::Chef::Resources
     
     def rtstps_install
-      ::Pathname.new(::File.join("/home",node['rtstps']['user'], 'rt-stps'))
+      ::Pathname.new("#{node['rtstps']['path']}/rt-stps")
     end
   end
 end

@@ -74,7 +74,13 @@ Vagrant.configure("2") do |config|
     chef.json = {
       rtstps: {
         cache: "/vagrant_data"
+      },
+      dbvm: {
+        download_cache: "/vagrant_data",
+        home: "/vagrant_data/opt",
+        user: "vagrant"
       }
+      
       # :mysql => {
 #         :server_root_password => 'rootpass',
 #         :server_debian_password => 'debpass',
@@ -84,6 +90,7 @@ Vagrant.configure("2") do |config|
 
     chef.run_list = [
         "recipe[minitest-handler::default]",
+        #"recipe[dbvm-cookbook::default]",
         "recipe[rtstps-cookbook::default]"
     ]
   end

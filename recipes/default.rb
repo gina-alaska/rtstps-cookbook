@@ -10,13 +10,24 @@
 #Install Java - Default is openjdk
 include_recipe "java"
 
+if node['recipes'].include? "dbvm-cookbook::default" 
+  node.set['rtstps']['path'] = node['dbvm']['HOME'] + "/apps"
+  node.set['rtstps']['user'] = node['dbvm']['user']
+end
+
 #Ensure the rtstps user exists
 user node['rtstps']['user']
 
+directory node['rtstps']['path'] do
+  user node['rtstps']['user']
+  group node['rtstps']['user']
+  recursive true
+end
+
 execute 'extract rtspts' do
   command ["tar xvf #{node['rtstps']['cache']}/#{node['rtstps']['source']}",
-           "-C /home/#{node['rtstps']['user']}"].join(" ")
+           "-C #{node['rtstps']['path']}"].join(" ")
   user node['rtstps']['user']
-  group node['rtstps']['user']         
-  not_if { ::File.exists?("#{node['rtstps']['path']}/VERSIONLOG") }
+  group node['rtstps']['user'] 
+  not_if { ::File.exists?("#{node['rtstps']['path']}/rt-stps/VERSIONLOG") }
 end

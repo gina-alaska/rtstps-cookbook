@@ -2,7 +2,7 @@
 default['rtstps']['user'] = "processing"
 
 #Relative to the RTSPS users home directory
-default['rtstps']['path'] = "rt-stps"
+default['rtstps']['path'] = "/opt"
 
 #Name of the RT-STPS package.  Due to distribution restrictinos, you must 
 #  download it and place it in the 'download_cache' directory prior to 
