@@ -25,4 +25,8 @@ describe 'rtstps-cookbook::default' do
     file(rtstps_install.to_path).must_exist.with(:owner, node['rtstps']['user']).with(:group, node['rtstps']['user'])
   end
   
+  it 'sets up the environment for rtstps' do
+    file("/etc/profile.d/rtstps_env.sh").must_exist.with(:mode, "0644")
+  end
+  
 end

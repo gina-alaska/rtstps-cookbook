@@ -31,3 +31,7 @@ execute 'extract rtspts' do
   group node['rtstps']['user'] 
   not_if { ::File.exists?("#{node['rtstps']['path']}/rt-stps/VERSIONLOG") }
 end
+
+template "/etc/profile.d/rtstps-env.sh" do
+  mode 0644
+end
