@@ -10,11 +10,6 @@
 #Install Java - Default is openjdk
 include_recipe "java"
 
-if node['recipes'].include? "dbvm-cookbook::default" 
-  node.set['rtstps']['path'] = node['dbvm']['HOME'] + "/apps"
-  node.set['rtstps']['user'] = node['dbvm']['user']
-end
-
 #Ensure the rtstps user exists
 user node['rtstps']['user']
 
