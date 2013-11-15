@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  config.vm.hostname = "rtstps-cookbook-berkshelf"
+  config.vm.hostname = "rtstps-berkshelf"
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "opscode_centos-6.4_provisionerless"
@@ -59,7 +59,7 @@ Vagrant.configure("2") do |config|
     }
     chef.run_list = [
       "recipe[minitest-handler::default]",
-      "recipe[rtstps-cookbook::default]"
+      "recipe[rtstps::default]"
     ]
   end
 end

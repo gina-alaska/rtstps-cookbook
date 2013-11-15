@@ -2,9 +2,9 @@ require File.expand_path('../support/helpers', __FILE__)
 require 'pathname'
 require 'etc'
 
-describe 'rtstps-cookbook::default' do
+describe 'rtstps::default' do
 
-  include Helpers::Rtstps_cookbook
+  include Helpers::Rtstps
 
   # Example spec tests can be found at http://git.io/Fahwsw
   # it 'runs no tests by default' do

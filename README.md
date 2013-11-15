@@ -1,4 +1,4 @@
-# rtstps-cookbook cookbook
+# rtstps cookbook
 
 # Requirements
 Java 1.6_025 or newer

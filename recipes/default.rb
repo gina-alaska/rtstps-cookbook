@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: rtstps-cookbook
+# Cookbook Name:: rtstps
 # Recipe:: default
 #
 # Copyright (C) 2013 Scott Macfarlane
