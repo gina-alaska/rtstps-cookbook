@@ -22,7 +22,7 @@ describe 'rtstps-cookbook::default' do
   end
   
   it 'will give ownership of rt-stps to the correct user' do
-    file(rtstps_install.to_path).must_exist.with(:owner, node['rtstps']['user']).with(:group, node['rtstps']['user'])
+    directory(rtstps_install.to_path).must_exist.with(:owner, node['rtstps']['user'])
   end
   
   it 'sets up the environment for rtstps' do

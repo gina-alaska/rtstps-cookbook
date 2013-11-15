@@ -18,7 +18,7 @@ end
 #Ensure the rtstps user exists
 user node['rtstps']['user']
 
-directory node['rtstps']['path'] do
+directory "#{node['rtstps']['path']}/rt-stps" do
   user node['rtstps']['user']
   group node['rtstps']['user']
   recursive true
@@ -32,6 +32,6 @@ execute 'extract rtspts' do
   not_if { ::File.exists?("#{node['rtstps']['path']}/rt-stps/VERSIONLOG") }
 end
 
-template "/etc/profile.d/rtstps-env.sh" do
+template "/etc/profile.d/rtstps_env.sh" do
   mode 0644
 end
