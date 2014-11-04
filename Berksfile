@@ -1,7 +1,4 @@
-site :opscode
-group :integration do
-  cookbook "minitest-handler"
-end
+source 'https://supermarket.getchef.com'
 
 cookbook "java"
 
