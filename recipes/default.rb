@@ -36,3 +36,17 @@ end
 template "/etc/profile.d/rtstps_env.sh" do
   mode 0644
 end
+
+remote_file "#{node['rtstps']['path']}/leapsec.dat" do
+  source 'ftp://is.sci.gsfc.nasa.gov/ancillary/temporal/leapsec.2015091401.dat'
+  not_if { node['rtstps']['update-leapsec'] == false }
+  notifies :run, 'ruby_block[disable-update-leapsec]', :immediately
+end
+
+ruby_block 'disable-update-leapsec' do
+  action :nothing
+  block do
+    node.default['rtstps']['update-leapsec'] = false
+  end
+end
+
