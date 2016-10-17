@@ -7,46 +7,17 @@
 # All rights reserved - Do Not Redistribute
 #
 
-#Install Java - Default is openjdk
 include_recipe "java"
 
-#Ensure the rtstps user exists
-user node['rtstps']['user']
-
-directory "#{node['rtstps']['path']}/rt-stps" do
-  user node['rtstps']['user']
-  group node['rtstps']['user']
-  recursive true
+rtstps '/opt/rt-stps' do
+  source 'http://mirrors.gina.alaska.edu/NASA/RTSTPS/RT-STPS_5.8.tar.gz'
 end
 
-rtspts_filename = ::File.basename(node['rtstps']['source'])
-
-remote_file "#{node['rtstps']['cache_dir']}/#{rtspts_filename}" do
-  source node['rtstps']['source']
+rtstps '/opt/rt-stps' do
+  source 'http://mirrors.gina.alaska.edu/NASA/RTSTPS/RT-STPS_5.8_PATCH_1.tar.gz'
+  action :patch
 end
 
-execute 'extract-rtspts' do
-  command ["tar xvf #{node['rtstps']['cache_dir']}/#{rtspts_filename}",
-           "-C #{node['rtstps']['path']}"].join(" ")
-  user node['rtstps']['user']
-  group node['rtstps']['user']
-  not_if { ::File.exists?("#{node['rtstps']['path']}/rt-stps/VERSIONLOG") }
+rtstps_leapsec "/opt/rt-stps/leapsec.dat" do
+  source 'ftp://is.sci.gsfc.nasa.gov/ancillary/temporal/'
 end
-
-template "/etc/profile.d/rtstps_env.sh" do
-  mode 0644
-end
-
-remote_file "#{node['rtstps']['path']}/leapsec.dat" do
-  source 'ftp://is.sci.gsfc.nasa.gov/ancillary/temporal/leapsec.2015091401.dat'
-  not_if { node['rtstps']['update-leapsec'] == false }
-  notifies :run, 'ruby_block[disable-update-leapsec]', :immediately
-end
-
-ruby_block 'disable-update-leapsec' do
-  action :nothing
-  block do
-    node.default['rtstps']['update-leapsec'] = false
-  end
-end
-
