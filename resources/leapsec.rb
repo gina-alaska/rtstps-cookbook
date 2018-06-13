@@ -9,20 +9,20 @@ load_current_value do
 end
 
 action :create do
-  file path do
+  file new_resource.path do
     action :create_if_missing
-    content get_latest(source)
+    content get_latest(new_resource.source)
   end
 end
 
 action :update do
-  file path do
+  file new_resource.path do
     content
   end
 end
 
 action :delete do
-  file path do
+  file new_resource.path do
     action :delete
   end
 end
